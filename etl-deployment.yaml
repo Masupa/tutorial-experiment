@@ -1,0 +1,40 @@
+###
+### A complete description of a Prefect Deployment for flow 'Clean flow'
+###
+name: elt-deployment
+description: Main etl function
+version: 9919ecf8b8e325bc64b47f279560ff03
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+work_pool_name: null
+tags: []
+parameters: {}
+schedule: null
+is_schedule_active: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: Clean flow
+manifest_path: null
+storage: null
+path: /Users/davidmasupa/development/tutorial-experiment
+entrypoint: Workflow-Orchestration/Prefect/etl.py:etl
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties: {}
+  required: null
+  definitions: null
+timestamp: '2023-04-28T15:09:26.547240+00:00'
