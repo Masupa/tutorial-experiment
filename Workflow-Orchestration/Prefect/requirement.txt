@@ -1,2 +1,5 @@
-pandas==1.3.5
+pandas==1.5.2
+pandas-gbq
+pyarrow==10.0.1
 prefect==2.10.6
+prefect-gcp[bigquery]==0.4.1
