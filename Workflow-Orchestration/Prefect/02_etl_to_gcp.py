@@ -45,7 +45,7 @@ def load_to_gcs(df: pd.DataFrame) -> None:
     gcs_bucket.upload_from_dataframe(
         df=df,
         to_path=Path("Data/CustomerDemographic.csv"),
-        serialization_format="csv_gzip"
+        serialization_format="parquet"
     )
 
     return
