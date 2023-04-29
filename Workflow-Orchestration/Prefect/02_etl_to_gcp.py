@@ -14,7 +14,7 @@ def extract():
     """load CSV file data"""
 
     # CSV file path
-    file_path = "/Users/davidmasupa/development/tutorial-experiment/Workflow-Orchestration/Data/CustomerDemographic.csv"
+    file_path = "Workflow-Orchestration/Data/CustomerDemographic.csv"
 
     # Read CSV file into Pandas DataFrame
     df = pd.read_csv(file_path)
@@ -34,7 +34,7 @@ def change_dtypes(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 # Load
-@task(log_prints=True, retries=3)
+@task(log_prints=True, retries=3, cache_key_fn=task_input_hash, cache_expiration=timedelta(minutes=30))
 def load_to_gcs(df: pd.DataFrame) -> None:
     """Upload CSV file to Google Cloud Storage"""
 
