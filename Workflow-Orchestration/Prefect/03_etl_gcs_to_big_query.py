@@ -46,7 +46,7 @@ def change_dtypes(df: pd.DataFrame) -> pd.DataFrame:
 
     # Convert `DOB` dtypes to datetime
     print(f"{df['DOB'].dtype}")
-    df['DOB'] = pd.to_datetime(df['DOB'])
+    df['DOB'] = pd.to_datetime(df['DOB']).dt.date
     print(f"{df['DOB'].dtype}")
 
     return df
@@ -61,12 +61,20 @@ def load_to_bq(df: pd.DataFrame) -> None:
     gcp_credentials_block = GcpCredentials.load("cs-dtc-practice-credentials")
 
     # Export DataFrame to BigQuery
+    # df.to_gbq(
+    #     project_id="root-setting-384013",
+    #     destination_table="Customer_Dataset.customer_demographics",
+    #     credentials=gcp_credentials_block.get_credentials_from_service_account(),
+    #     if_exists="append",
+    #     destination_format='CSV'
+    # )
     pandas_gbq.to_gbq(
         dataframe=df,
         project_id="root-setting-384013",
         destination_table="Customer_Dataset.customer_demographics",
         credentials=gcp_credentials_block.get_credentials_from_service_account(),
-        if_exists="append"
+        if_exists="append",
+        api_method="load_csv"
     )
 
 
@@ -81,8 +89,10 @@ def etl(gcs_file_path: str, save_file_path: str) -> None:
     # Transform
     df = change_dtypes(df)
 
+    print(df.shape)
+
     # Load to BigQuery Data Warehouse
-    # load_to_bq(df) TODO: Fix to error returned here
+    load_to_bq(df) # TODO: Fix to error returned here
     
 
 if __name__ == "__main__":
